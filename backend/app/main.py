@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routes import api, ai
+from app.routes import api, ai, resume, jobs
 
 # Create FastAPI app
 app = FastAPI(
@@ -23,6 +23,9 @@ app.add_middleware(
 # Include routers
 app.include_router(api.router, prefix=settings.API_V1_PREFIX)
 app.include_router(ai.router, prefix=f"{settings.API_V1_PREFIX}/ai")
+app.include_router(resume.router, prefix=f"{settings.API_V1_PREFIX}/resume")
+app.include_router(jobs.router, prefix=f"{settings.API_V1_PREFIX}/jobs")
+
 
 @app.get("/")
 async def root():
@@ -42,5 +45,5 @@ if __name__ == "__main__":
         "app.main:app",
         host="0.0.0.0",
         port=8000,
-        reload=True  # Auto-reload during development
+        reload=True
     )
