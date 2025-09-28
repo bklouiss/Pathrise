@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routes import api, ai, resume, jobs
+from app.routes import api, ai, resume, jobs, auth
 
 # Create FastAPI app
 app = FastAPI(
@@ -25,6 +25,7 @@ app.include_router(api.router, prefix=settings.API_V1_PREFIX)
 app.include_router(ai.router, prefix=f"{settings.API_V1_PREFIX}/ai")
 app.include_router(resume.router, prefix=f"{settings.API_V1_PREFIX}/resume")
 app.include_router(jobs.router, prefix=f"{settings.API_V1_PREFIX}/jobs")
+app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth")
 
 
 @app.get("/")
